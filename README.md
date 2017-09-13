@@ -7,8 +7,7 @@
 ![image](/WX20170913-145523.png)
 
 
-[lightgallery   Full featured JavaScript image & video gallery. No dependencies] 
-(https://github.com/sachinchoolur/lightgallery.js)
+[lightgallery](https://github.com/sachinchoolur/lightgallery.js)
 
 [jteeuwen/go-bindata](https://github.com/jteeuwen/go-bindata)
 
