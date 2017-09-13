@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Media</title>
+	<link rel="stylesheet" type="text/css" href="static/css/normalize.css" />
+	<link rel="stylesheet" type="text/css" href="static/css/htmleaf-demo.css">
+    <link rel="stylesheet" type="text/css" href="static/dist/css/lightgallery.min.css">
+    <!-- <link rel="stylesheet" href="css/main.css"> -->
+    <link rel="stylesheet" href="static/css/new.css">
+    <link href="https://vjs.zencdn.net/4.12/video-js.css" rel="stylesheet">
+
+    <script src="static/js/jquery.min.js"></script>
+	<style>
+          body {
+              background-color: #152836;
+          }  
+        </style>
+	<!--[if IE]>
+		<script src="http://libs.useso.com/js/html5shiv/3.7/html5shiv.min.js"></script>
+	<![endif]-->
+</head>
+<body class="home">
+	<div class="htmleaf-container">
+		<header class="htmleaf-header">
+            <h1>Gladius</h1>
+            <h2><span>Media library</span></h2>
+			
+		</header>
+    </div>
+    
+    <!-- <section class="section"> -->
+        <div class="container-fluid">  
+            
+        <h2 style="color:aliceblue">Picture</h2>
+	        <div class="demo-gallery">
+                <ul id="lightgallery" class="list-unstyled row">
+                
+                </ul>
+            
+            
+            </div>
+        </div>
+    <!-- </section>  -->
+ 
+    <!-- <section class="section"> -->
+            <div class="container-fluid">      
+                    <h2 style="color:aliceblue">Video</h2>
+
+        <div class="demo-gallery" id="video">
+            
+            <!-- <div style="display:none;" id="video1">
+                    <video class="lg-video-object lg-html5" controls preload="none" >
+                        <source src="static/video/video.mp4" type="video/mp4">
+                            Your browser does not support HTML5 video.
+                    </video>
+
+            </div> -->
+            <!-- <ul id="html5-videos" class="list-unstyled row">
+
+                <li class="col-xs-6 col-sm-4 col-md-3 video" data-html="#video1" data-poster="img/thumb-1.jpg" data-sub-html="<h4>2222222</h4>">
+                    <a href="">
+                        <img class="img-responsive" src="img/thumb-1.jpg">
+                        <div class="demo-gallery-poster">
+                            <img src="src/img/video-play.png">
+                        </div>
+                    </a>
+                </li>
+                <li class="col-xs-6 col-sm-4 col-md-3 video" data-html="#video1" data-poster="img/thumb-1.jpg" data-sub-html="<h4>2222222</h4>">
+                    <a href="">
+                        <img class="img-responsive" src="img/thumb-1.jpg">
+                        <div class="demo-gallery-poster">
+                            <img src="src/img/video-play.png">
+                        </div>
+                    </a>
+                </li>
+            </ul>  -->
+        </div>
+    </div>
+    <!-- </section> -->
+	    <script src="static/js/picturefill.min.js"></script>
+        <script src="static/js/lightgallery.js"></script>
+        <script src="static/js/lg-pager.js"></script>
+        <!-- <script src="js/lg-autoplay.js"></script> -->
+        <script src="static/js/lg-fullscreen.js"></script>
+        <script src="static/js/lg-thumbnail.min.js"></script>
+        <script src="static/js/lg-video.js"></script>
+        <script>
+            $(document).ready(function() {
+            $.ajax({
+                url: "/getimagelist",
+                type: "GET",
+                async: false,
+                success: function(data) {
+                    var imageArr = data.data;
+                    var imageItem = JSON.parse(imageArr);
+                    con = '';
+                    videosrc = '';
+                    videoli = '';
+                    $.each(imageItem, function(index, item){
+                        
+                        if (item.ImageNomal.indexOf('mp4') >= 0) {
+                            videosrc += '<div style="display:none;" id="' + "video" + index + '">\
+                    <video class="lg-video-object lg-html5" controls preload="none" >\
+                        <source src="' + item.ImageNomal + '" type="video/mp4">\
+                            Your browser does not support HTML5 video.\
+                    </video>\
+            </div>'
+                        videoli += '<li class="col-xs-6 col-sm-4 col-md-3 video" \
+                        data-html="#'+ "video" + index +'" data-poster="'+ item.ImageThum +'" \
+                        data-sub-html="">\
+                    <a href="">\
+                        <img class="img-responsive" src="'+ item.ImageThum +'">\
+                        <div class="demo-gallery-poster">\
+                            <img src="static/src/img/video-play.png">\
+                        </div>\
+                    </a>\
+                </li>'
+                        } else if (item.ImageNomal.indexOf('jpg') >= 0 || item.ImageNomal.indexOf('png') >= 0) {
+                            con += '<li class="col-xs-6 col-sm-4 col-md-3" data-responsive="' + item.ImageThum + '" data-src="' + item.ImageNomal + '" ><a href=""><img class="img-responsive" src="' + item.ImageThum + '" alt="Thumb-1"></a></li> ';
+                        
+                        }
+                        
+                    });
+                    videosrc += '<ul id="html5-videos" class="list-unstyled row">';
+                    videosrc += videoli;
+                    videosrc += '</ul>'
+                    $("#lightgallery").html(con); 
+                    $('#video').html(videosrc);
+                    }
+                })
+
+            lightGallery(document.getElementById('lightgallery'),{
+                thumbnail:true
+            }); 
+            
+            lightGallery(document.getElementById('html5-videos'));
+            // lightGallery(document.getElementById('lightgallery'));
+
+            });
+            
+        </script>
+</body>
+</html>
