@@ -7,6 +7,10 @@
 * 使用go-bindata打包html、css、js
 * 使用ginweb服务器
 
+### 使用
+> ./ImageView
+
+> localhost:8888/image
 
 bindata.go 是将静态文件打包成的*.go
 
