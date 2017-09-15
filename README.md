@@ -1,10 +1,11 @@
 # ImageView
 
+
+![image](/WX20170913-145523.png)
+
 * 集成lightgallery写的图片和视频浏览器
 * 使用go-bindata打包html、css、js
 * 使用ginweb服务器
-
-![image](/WX20170913-145523.png)
 
 
 bindata.go 是将静态文件打包成的*.go
